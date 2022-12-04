@@ -46,7 +46,12 @@
                                  >
                                 <i class="las la-edit"></i>
                                 </a>
-                                <a href="" class="btn btn-danger"><i class="las la-times"></i></i></a>
+                                <a href=""
+                                class="btn btn-danger delete_product"
+                                data-id="{{ $product->id }}"
+                                >
+                                <i class="las la-times"></i>
+                            </a>
                             </td>
                           </tr>
                           @endforeach
