@@ -25,17 +25,17 @@ class ProductController extends Controller
                 'price.required'=>'Price Is Required',
             ]
     );
-        $product=new Product();
-        $product->name=$request->name;
-        $product->price=$request->price;
-        $product->save();
-        return response()->json([
-            'status'=> 'success',
-        ]);
+            $product=new Product();
+            $product->name=$request->name;
+            $product->price=$request->price;
+            $product->save();
+            return response()->json([
+                'status'=> 'success',
+            ]);
     }
      //update product
      public function updateproduct(Request $request){
-        $request->validate(
+            $request->validate(
             [
             'up_name'=> 'required|unique:products,name,'.$request->up_id,
             'up_price'=> 'required',
@@ -50,15 +50,33 @@ class ProductController extends Controller
         Product::where('id',$request->up_id)->update([
             'name'=>$request->up_name,
             'price'=>$request->up_price,
-        ]);
-        return response()->json([
-            'status'=> 'success',
-        ]);
+            ]);
+            return response()->json([
+                'status'=> 'success',
+            ]);
      }
-     public function deleteproduct(Request $request){
-        Product::find($request->product_id)->delete();
-        return response()->json([
-            'status'=> 'success',
-        ]);
+        public function deleteproduct(Request $request){
+            Product::find($request->product_id)->delete();
+            return response()->json([
+                'status'=> 'success',
+            ]);
      }
+        public function pagination(Request $request){
+            $products=Product::latest()->paginate(5);
+            return view('pagination_products',compact('products'))->render();
+     }
+        public function searchproduct(Request $request){
+            $products=Product::where('name','like','%'.$request->search_string.'%')
+            ->orWhere('price','like','%'.$request->search_string.'%')
+            ->orderBy('id','desc')
+            ->paginate(5);
+            if($products->count()>=1){
+                return view('pagination_products',compact('products'))->render();
+            }else{
+                return response()->json([
+                    'status'=> 'nothing_found',
+                ]);
+            }
+
+      }
 }

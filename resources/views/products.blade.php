@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
     <title>Ajax Crud</title>
   </head>
@@ -19,6 +20,7 @@
             <div class="col-md-8">
                 <h2 class="my-5 text-center">Lara 9 Ajax CRUD</h2>
                 <a href="" class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#addModal">Add Product</a>
+                <input type="text" name="search" id="search" class="mb-3 form-control" placeholder="Product search...">
                 <div class="table-data">
                     <table class="table table-bordered">
                         <thead>
@@ -63,9 +65,10 @@
         </div>
     </div>
 
-   @include('add_product_modal')
-   @include('update_product_modal')
-   @include('product_js')
+        @include('add_product_modal')
+        @include('update_product_modal')
+        @include('product_js')
+        {!! Toastr::message() !!}
 
     </body>
 </html>
